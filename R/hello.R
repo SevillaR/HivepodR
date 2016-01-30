@@ -46,8 +46,13 @@ connect <- function(url, user, pass) {
 
 query <- function(con, resource, ...) {
   aut <- authenticate(con[[2]], con[[3]])
-  q1 <- GET(handle=con[[1]], config=list(), path=paste("api/", resource, sep="") )
+  q1 <- GET(handle=con[[1]], config=list(aut), path=paste("api/", resource, sep="") )
   dataQ1 <- content(q1, type="application/json")
   return (dataQ1)
 }
+
+# Usage:
+# a <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
+# q <- query(a, "oficinas")
+
 
