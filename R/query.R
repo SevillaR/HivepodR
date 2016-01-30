@@ -152,11 +152,18 @@ query <- function(res, limit=-1, skip=-1, conditions=NULL, sort, selectFields, d
   return (df)
 }
 
-count <- function(res, conditions, distinct) {
+count <- function(res, conditions=NULL, distinct=NULL) {
   
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
-  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], "?count=true", sep="") )
+  
+  query <- "?count=true"
+  prefix <- "&"
+  if (!is.null(conditions)) {
+    query <- paste0(query, prefix, buildQueryConditions(conditions))
+  }
+  
+  q1 <- GET(handle=urlbase, config=aut, path=paste0("api/", res[[5]], query) )
   dataQ1 <- content(q1, type="application/json")
   return (dataQ1)
 }
@@ -179,6 +186,11 @@ buildCondition <- function(variable, operator, value) {
 # oficinas <- resource(cnx, "oficinas")
 # q <- queryRaw(oficinas, "?limit=2")
 # q <- query(oficinas, limit=2, skip=0, conditions=buildCondition("nombre", "==", "Barcelona")  )
+#
+# exo <- resource(cnx, "exoplanets")
+# q <- count(exo)
+# queryRaw(exo, "?limit=20")
+
 
 # https://jacaton-r.herokuapp.com/api/oficinas?conditions={%22nombre%22:%22Barcelona%22}
 

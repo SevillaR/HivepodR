@@ -1,0 +1,28 @@
+Todo list
+
+  Operators
+    == implemented
+    != implemented
+    >
+    <
+    >=
+    <=
+    AND
+    OR
+    like
+    
+  Sort
+  Distint
+  
+  
+  Create
+  Update
+  Delete
+  
+  Refactor code
+  Document
+  Test
+  Publish
+  
+  
+  
