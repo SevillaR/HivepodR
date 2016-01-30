@@ -32,6 +32,41 @@ hello <- function() {
 
 library("httr")
 
+
+urlEncode <- function(value) {
+  if (mode(value) == "numeric") {
+    return (value)   
+  }
+  if (mode(value) == "character") {
+    return  (paste0("\"", value, "\"")) 
+  }
+  if (mode(value) == "logical") {
+    if (value==TRUE) {
+      return ("true")      
+    } else {
+      return ("false")      
+    }
+  }
+  return (value)
+}
+
+buildQueryConditions <- function(conditionList=NULL) {
+  if (is.null(conditionList)) {
+    return(NA)
+  }  
+  res <- "conditions={"
+  prefix <-""
+  
+  for(i in 1:length(conditionList)) {
+    res <- paste0(res, prefix, conditionList[i])
+    prefix=","    
+  }
+  
+  res <- paste0(res, "}")
+  return(res)
+}
+
+
 connect <- function(url, user, pass) {
   urlbase <- handle(url)
   rping <- GET(handle=urlbase, path="ping")
@@ -58,21 +93,48 @@ queryRaw <- function(res, query) {
 }
 
 
-query <- function(res, limit, skip, conditions, sort, selectFields, distinct) {
+
+query <- function(res, limit=-1, skip=-1, conditions, sort, selectFields, distinct) {
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
+  
+  query <- ""
+  prefix <- "?"
+  if (limit!=-1) {
+    query <- paste0(prefix, "limit=", limit)
+    prefix <- "&"
+  }
+  if (skip!=-1) {
+    query <- paste0(query, prefix, "skip=", skip)
+    prefix <- "&"
+  }
+
+    
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
   return (dataQ1)
 }
 
 count <- function(res, conditions, distinct) {
+  
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], "?count=true", sep="") )
   dataQ1 <- content(q1, type="application/json")
   return (dataQ1)
 }
+
+buildCondition <- function(variable, operator, value) {
+  if (operator == "==") {
+    cond <- paste0("\"", variable, "\":", urlEncode(value))
+  }
+  if (operator == "!=") {
+    cond <- paste0("\"", variable, "{\"$not\"{\"$eq\":", urlEncode(value), "}}")
+  }
+  return (cond)
+}
+
+#{"nombre":{"$not":{"$eq":"Barcelona"}}}
 
 
 # Usage:
@@ -81,11 +143,11 @@ count <- function(res, conditions, distinct) {
 # q <- queryRaw(oficinas, "?limit=2")
 # q <- query(oficinas, limit=2, skip=1, order="-name +apellido", conditions=list("nombre" "barcelona, )  )
 
-# cond = buildCondition("nombre", "==", "Barcelona")
-# cond = andCondition(cond, "x", ">", 4)
-# cond = andCondition(cond, "x", ">", 4)
-# cond = andCondition(cond, "x", ">", 4)
-# cond = andCondition(cond, "x", ">", 4)
+# https://jacaton-r.herokuapp.com/api/oficinas?conditions={%22nombre%22:%22Barcelona%22}
+
+# cond1 = buildCondition("nombre", "==", "Barcelona")
+# cond2 = buildCondition(cond, "x", ">", 4)
+# conds = list(cond1, cond2)
 
 
 
