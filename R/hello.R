@@ -54,6 +54,6 @@ query <- function(con, resource, query) {
 
 # Usage:
 # a <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
-# q <- query(a, "oficinas")
+# q <- query(a, "oficinas", "")
 
 
