@@ -44,16 +44,22 @@ connect <- function(url, user, pass) {
   return (con)
 }
 
-query <- function(con, resource, query) {
-  urlbase <- handle(con[[1]])
-  aut <- authenticate(con[[2]], con[[3]])
-  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", resource, query, sep="") )
+resource <-  function(con, resourceName) {
+  con2 <- list(con[[1]], con[[2]], con[[3]],con[[4]], resourceName)
+  return (con2)
+}
+
+query <- function(res, query) {
+  urlbase <- handle(res[[1]])
+  aut <- authenticate(res[[2]], res[[3]])
+  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
   return (dataQ1)
 }
 
 # Usage:
-# a <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
-# q <- query(a, "oficinas", "")
+# cnx <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
+# oficinas <- resource(cnx, "oficinas")
+# q <- query(oficinas, "?limit=2")
 
 
