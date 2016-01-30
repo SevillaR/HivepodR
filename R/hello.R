@@ -29,3 +29,25 @@
 hello <- function() {
   print("Hello, world!")
 }
+
+require("httr")
+
+connect <- function(url, user, pass) {
+  urlbase <- handle(url)
+  rping <- GET(handle=urlbase, path="ping")
+  
+  dataPing <- content(rping, type="application/json")
+  
+  aut <- authenticate(user, pass)
+  status <- GET(handle=urlbase,  config=list(aut), path="api/status")
+  con <- list(urlbase, user, pass)
+  return (con)
+}
+
+query <- function(con, resource, ...) {
+  aut <- authenticate(con[[2]], con[[3]])
+  q1 <- GET(handle=con[[1]], config=list(), path=paste("api/", resource, sep="") )
+  dataQ1 <- content(q1, type="application/json")
+  return (dataQ1)
+}
+
