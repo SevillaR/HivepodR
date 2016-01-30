@@ -26,9 +26,11 @@
 #' pairs(eve1)
 #' pairs(eve2)
 
-hello <- function() {
-  print("Hello, world!")
+nullToNA <- function(x) {
+  x[sapply(x, is.null)] <- NA
+  return(x)
 }
+
 
 library("httr")
 
@@ -66,6 +68,35 @@ buildQueryConditions <- function(conditionList=NULL) {
   return(res)
 }
 
+to_dataframe <- function(response, keep_metadata = FALSE){
+  responseNA <- lapply(response, nullToNA)
+  #responseNA[[1]]
+  #other option
+  #if values are string/numeric...
+  #dat <- do.call(rbind, lapply(dataQ1, rbind)) #this option do not suport nested lists
+  #dat <- nullToNA(dat)
+  
+  dat <- unlist(responseNA)
+  #head(dat,10)
+  nvariales <- length(unlist(responseNA[[1]]))
+  ncases <- length(responseNA)
+  datamatrix <- matrix(data = dat, nrow = ncases, ncol = nvariales, byrow = TRUE) 
+  colnames(datamatrix) <- names(unlist(responseNA[[1]]))
+  datamatrix <- as.data.frame(datamatrix)
+  head(datamatrix)
+  
+  #remove "_links." etc...
+  #optional "_", pero NO "_id"
+  idnum <- grep("_id", colnames(datamatrix), fixed = TRUE)
+  links <- grep("_links.", colnames(datamatrix), fixed = TRUE)
+  optionalsid <- grep("_", colnames(datamatrix), fixed = TRUE)
+  optionals <- optionalsid[-which(optionalsid == idnum)]
+  raw_links <- datamatrix
+  raw <- datamatrix[,-links]
+  clean <- datamatrix[,-optionals]
+  return(clean)
+  #implment option raw
+}
 
 connect <- function(url, user, pass) {
   urlbase <- handle(url)
@@ -89,7 +120,8 @@ queryRaw <- function(res, query) {
   aut <- authenticate(res[[2]], res[[3]])
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
-  return (dataQ1)
+  df <- to_dataframe(dataQ1)
+  return (df)
 }
 
 
@@ -112,7 +144,8 @@ query <- function(res, limit=-1, skip=-1, conditions, sort, selectFields, distin
     
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
-  return (dataQ1)
+  df <- to_dataframe(dataQ1)
+  return (df)
 }
 
 count <- function(res, conditions, distinct) {
@@ -138,10 +171,11 @@ buildCondition <- function(variable, operator, value) {
 
 
 # Usage:
-# cnx <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
+# cnx <- connect("http://jacaton-r.herokuapp.com", "admin", "icinetic")
 # oficinas <- resource(cnx, "oficinas")
 # q <- queryRaw(oficinas, "?limit=2")
-# q <- query(oficinas, limit=2, skip=1, order="-name +apellido", conditions=list("nombre" "barcelona, )  )
+# q <- query(oficinas, limit=2, skip=1, order="-name +apellido", 
+  #    conditions=list("nombre" "barcelona, )  )
 
 # https://jacaton-r.herokuapp.com/api/oficinas?conditions={%22nombre%22:%22Barcelona%22}
 
