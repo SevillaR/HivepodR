@@ -126,7 +126,7 @@ queryRaw <- function(res, query) {
 
 
 
-query <- function(res, limit=-1, skip=-1, conditions, sort, selectFields, distinct) {
+query <- function(res, limit=-1, skip=-1, conditions=NULL, sort, selectFields, distinct) {
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
   
@@ -140,8 +140,12 @@ query <- function(res, limit=-1, skip=-1, conditions, sort, selectFields, distin
     query <- paste0(query, prefix, "skip=", skip)
     prefix <- "&"
   }
+  if (!is.null(conditions)) {
+    query <- paste0(query, prefix, buildQueryConditions(conditions))
+    prefix <- "&"
+  }
+  
 
-    
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
   df <- to_dataframe(dataQ1)
@@ -162,20 +166,19 @@ buildCondition <- function(variable, operator, value) {
     cond <- paste0("\"", variable, "\":", urlEncode(value))
   }
   if (operator == "!=") {
-    cond <- paste0("\"", variable, "{\"$not\"{\"$eq\":", urlEncode(value), "}}")
+    cond <- paste0("\"", variable, "\":{\"$not\":{\"$eq\":", urlEncode(value), "}}")
   }
   return (cond)
 }
 
-#{"nombre":{"$not":{"$eq":"Barcelona"}}}
+#"nombre":{"$not":{"$eq":"Barcelona"}}
 
 
 # Usage:
 # cnx <- connect("http://jacaton-r.herokuapp.com", "admin", "icinetic")
 # oficinas <- resource(cnx, "oficinas")
 # q <- queryRaw(oficinas, "?limit=2")
-# q <- query(oficinas, limit=2, skip=1, order="-name +apellido", 
-  #    conditions=list("nombre" "barcelona, )  )
+# q <- query(oficinas, limit=2, skip=0, conditions=buildCondition("nombre", "==", "Barcelona")  )
 
 # https://jacaton-r.herokuapp.com/api/oficinas?conditions={%22nombre%22:%22Barcelona%22}
 
