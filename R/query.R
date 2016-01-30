@@ -186,3 +186,4 @@ buildCondition <- function(variable, operator, value) {
 
 
 
+
