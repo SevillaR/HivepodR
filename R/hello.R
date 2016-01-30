@@ -49,7 +49,7 @@ resource <-  function(con, resourceName) {
   return (con2)
 }
 
-query <- function(res, query) {
+queryRaw <- function(res, query) {
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
@@ -57,9 +57,35 @@ query <- function(res, query) {
   return (dataQ1)
 }
 
+
+query <- function(res, limit, skip, conditions, sort, selectFields, distinct) {
+  urlbase <- handle(res[[1]])
+  aut <- authenticate(res[[2]], res[[3]])
+  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
+  dataQ1 <- content(q1, type="application/json")
+  return (dataQ1)
+}
+
+count <- function(res, conditions, distinct) {
+  urlbase <- handle(res[[1]])
+  aut <- authenticate(res[[2]], res[[3]])
+  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], "?count=true", sep="") )
+  dataQ1 <- content(q1, type="application/json")
+  return (dataQ1)
+}
+
+
 # Usage:
 # cnx <- connect("http://jacaton-r.herokuapp.com", "user", "pass")
 # oficinas <- resource(cnx, "oficinas")
-# q <- query(oficinas, "?limit=2")
+# q <- queryRaw(oficinas, "?limit=2")
+# q <- query(oficinas, limit=2, skip=1, order="-name +apellido", conditions=list("nombre" "barcelona, )  )
+
+# cond = buildCondition("nombre", "==", "Barcelona")
+# cond = andCondition(cond, "x", ">", 4)
+# cond = andCondition(cond, "x", ">", 4)
+# cond = andCondition(cond, "x", ">", 4)
+# cond = andCondition(cond, "x", ">", 4)
+
 
 
