@@ -1,4 +1,4 @@
-# Private Auxiliar functions.
+# Private Auxiliar functions. --------------------------
 # Not exposed in the public package API.
 
 
@@ -9,7 +9,7 @@ nullToNA <- function(x) {
 
 #' Encode a URLComponent  
 #' 
-#' Returns a value protected for URL encoding.
+#' Private function. Returns a value protected for URL encoding.
 #' 
 #' @param value The value to encode.
 #' 

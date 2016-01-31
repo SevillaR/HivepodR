@@ -1,6 +1,6 @@
 #' Converts returned JSON data into an R dataframe.
 #' 
-#' Converts returned JSON data into an R dataframe.
+#' Private function. Converts returned JSON data into an R dataframe.
 #' 
 #' @param response The raw response data after a query.
 #' @param keep_metadata Flag to indicate if metadatata should be handled.

@@ -1,12 +1,15 @@
-Package: HivepodR
+Package: hivepodr
+Version: 0.1.0
+Date: 2016-01-29
 Type: Package
 Title: Manipulate data on Hivepod backends.
-Version: 0.1
-Date: 2016-01-29
 Author: Irene Mendoza, Elena Goméz-Diaz, Ignasi Bartomeus, Pedro J. Molina
 Maintainer: Pedro J. Molina <pjmolina@gmail.com>
 Description: Package for manipulating data on Hivepod backends (https://
     www.hivepod.io).
 License: MIT
 LazyData: TRUE
+Imports:
+    httr
+URL: https://github.com/SevillaR/hivepodR
 RoxygenNote: 5.0.1.9000
