@@ -2,7 +2,7 @@
 R Package for manipulating data created with [Hivepod](https://www.hivepod.io) backends.
 
 ## Sample Backend
-See [https://jacaton-r.herokuapp.com](https://jacaton-r.herokuapp.com/#/oficina/) as a sample Hivepod produced backend to test the package.
+See [https://jacaton-r.herokuapp.com](https://jacaton-r.herokuapp.com) as a sample Hivepod produced backend to test the package.
 Use the credentials: demo / 1234 as a readonly access.
 
 ## Usage

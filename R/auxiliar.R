@@ -34,6 +34,9 @@ urlEncode <- function(value) {
       return ("false")      
     }
   }
+  if (is.null(value) ) {
+    return ("null")
+  }
   return (value)
 }
 

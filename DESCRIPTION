@@ -11,5 +11,7 @@ License: MIT
 LazyData: TRUE
 Imports:
     httr
+Suggests:
+    testthat (>= 0.8.0)
 URL: https://github.com/SevillaR/hivepodR
 RoxygenNote: 5.0.1.9000
