@@ -20,7 +20,7 @@ Suported values are:
 This resource object can be used to make queries, count and manipulate data in the backend.
 }
 \description{
-Converts returned JSON data into an R dataframe.
+Private function. Converts returned JSON data into an R dataframe.
 }
 \examples{
 cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 

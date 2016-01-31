@@ -15,7 +15,7 @@ Add quotes if value is a string.
 Convert R logical value to JSON booleans.
 }
 \description{
-Returns a value protected for URL encoding.
+Private function. Returns a value protected for URL encoding.
 }
 \examples{
 urlEncode("A B") 
