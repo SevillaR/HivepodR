@@ -1,4 +1,7 @@
 # HivepodR
+
+[![Build Status](https://travis-ci.org/SevillaR/HivepodR.svg?branch=master)](https://travis-ci.org/SevillaR/HivepodR)
+
 R Package for manipulating data created with [Hivepod](https://www.hivepod.io) backends.
 
 ## Sample Backend
