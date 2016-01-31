@@ -1,10 +1,10 @@
 Package: HivepodR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Package for manipulating data on Hivepod backends (https://www.hivepod.io).
 Version: 0.1
 Date: 2016-01-29
-Author: Irene Mendoza, Elena Gomez Diaz, Ignasi Bartomeus, Pedro J. Molina
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Irene Mendoza, Elena Goméz-Diaz, Ignasi Bartomeus, Pedro J. Molina
+Maintainer: Pedro J. Molina <pjmolina@gmail.com>
+Description: Package for manipulating data on Hivepod backends (https://www.hivepod.io). 
+License: MIT
 LazyData: TRUE
