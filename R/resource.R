@@ -1,4 +1,4 @@
-#' Setups a resource.
+#' Creates a resource.
 #' 
 #' Setups and returns a resource available in a Hivepod backend.
 #' 

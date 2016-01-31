@@ -1,3 +1,20 @@
+#' Makes a raw query
+#' 
+#' Executes a query allowing pasing a direct Hivepod/Baucis query using JSON 
+#' syntax as defined here: 
+#' https://github.com/wprl/baucis/wiki/Query-String-Parameters
+#' 
+#' @param resource The resource to query.
+#' @param query Raw URL query. See doc here: https://github.com/wprl/baucis/wiki/Query-String-Parameters
+#' 
+#' @return Returns a dataframe with the returned data. 
+#' @export
+#' @examples 
+#' cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
+#' off <- resource(cnx, "oficinas") 
+#' 
+#' queryRaw(off, "?skip=2&limit=3")
+
 queryRaw <- function(resource, query) {
   urlbase <- handle(resource[[1]])
   aut <- authenticate(resource[[2]], resource[[3]])

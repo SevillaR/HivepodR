@@ -1,4 +1,6 @@
-#' Setups a connection.
+library("httr")
+
+#' Creates a connection.
 #' 
 #' Setup a connection to a given Hivepod backend with credentials.
 #' 

@@ -2,38 +2,39 @@
 % Please edit documentation in R/query.R
 \name{query}
 \alias{query}
-\title{lo que hace la funcion}
+\title{Makes a query}
 \usage{
-query(res, limit = -1, skip = -1, conditions = NULL, sort, selectFields,
-  distinct)
+query(resource, limit = -1, skip = 0, conditions = NULL, sort,
+  selectFields, distinct)
 }
 \arguments{
-\item{parametro}{1 \code{}}
+\item{resource}{The resource to query.}
 
-\item{param}{2}
+\item{limit}{Limit the number of data rows to retrieve. If no specified, no limit applies.}
+
+\item{skip}{Skip the first N data rows to retrieve. If no specified, no skip=0 is assumed.}
+
+\item{conditions}{A set of conditions to constraint the query on the server side. Use the function \code{buildCondition()} to create the conditions.0}
+
+\item{sort}{Criteria to sort the data returned. (Not yet implemented)}
+
+\item{selectFields}{Select and filter the fields to retrieve (columns). (Not yet implemented)}
+
+\item{distinct}{Provides a distict criteria. (Not yet implemented)}
 }
 \value{
-Ea0 returns a data.frame of class renyi with the selected indices.
-
-EinvD returns a vector with EinvD.
-
-EJ returns a a vector with Pielou's index.
-
-Evar returns a vector with Evar.
+Returns a dataframe with the returned data.
 }
 \description{
-en detalle
+Executes a query on the server backend and returns data.
 }
 \examples{
-Ea0(A = dummy$abun) 
-Ea0(A = dummy$abun, scales = c(0.25,0.5,1,2,4,8,Inf)) 
-EinvD(A = dummy$abun)
-EJ(A = dummy$abun)
-Evar(A = dummy$abun)
-#calculate all of them
-eve1 <- Eve(A = dummy$abun)
-eve2 <- Eve(A = dummy$abun, scales = c(0.25,0.5,1,2,4,8,Inf))
-pairs(eve1)
-pairs(eve2)
+cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
+off <- resource(cnx, "oficinas") 
+
+query(off)
+query(off, conditions=buildCondition("nombre", "==", "Seville")  )
+query(off, limit=2, skip=0)
+query(off, limit=2, skip=2)
 }
 

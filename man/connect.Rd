@@ -2,7 +2,7 @@
 % Please edit documentation in R/connect.R
 \name{connect}
 \alias{connect}
-\title{connect}
+\title{Creates a connection.}
 \usage{
 connect(url, user, pass)
 }
@@ -14,12 +14,13 @@ connect(url, user, pass)
 \item{pass}{The password for the user.}
 }
 \value{
-connect returns a connection object. This connection object can be used to discover and access to resources.
+connect returns a connection object for a Hivepod backend. 
+This connection object can be used to discover and access to resources.
 }
 \description{
 Setup a connection to a given Hivepod backend with credentials.
 }
 \examples{
-connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
+cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
 }
 
