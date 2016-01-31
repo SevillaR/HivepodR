@@ -106,27 +106,6 @@ connect <- function(url, user, pass) {
   dataPing <- content(rping, type="application/json")
   status <- GET(handle=urlbase,  config=authenticate(user, pass), path="api/status")
   dataQ1 <- content(status, type="application/json")
-
-  con <- list(url, user, pass, status)
-  return (con)
-}
-
-resource <-  function(con, resourceName) {
-  con2 <- list(con[[1]], con[[2]], con[[3]],con[[4]], resourceName)
-  return (con2)
-}
-
-queryRaw <- function(res, query) {
-  urlbase <- handle(res[[1]])
-  aut <- authenticate(res[[2]], res[[3]])
-  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
-  dataQ1 <- content(q1, type="application/json")
-  df <- to_dataframe(dataQ1)
-  return (df)
-}
-
-
-
 query <- function(res, limit=-1, skip=-1, conditions=NULL, sort, selectFields, distinct) {
   urlbase <- handle(res[[1]])
   aut <- authenticate(res[[2]], res[[3]])
@@ -146,7 +125,7 @@ query <- function(res, limit=-1, skip=-1, conditions=NULL, sort, selectFields, d
     prefix <- "&"
   }
   
-
+  
   q1 <- GET(handle=urlbase, config=aut, path=paste("api/", res[[5]], query, sep="") )
   dataQ1 <- content(q1, type="application/json")
   df <- to_dataframe(dataQ1)
@@ -197,7 +176,3 @@ buildCondition <- function(variable, operator, value) {
 
 # cond1 = buildCondition("nombre", "==", "Barcelona")
 # cond2 = buildCondition(cond, "x", ">", 4)
-# conds = list(cond1, cond2)
-
-
-
