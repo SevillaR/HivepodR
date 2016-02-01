@@ -1,4 +1,4 @@
-library("httr")
+require("httr")
 
 #' Creates a connection.
 #' 
@@ -15,11 +15,11 @@ library("httr")
 #' cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
 
 connect <- function(url, user, pass) {
-  urlbase <- handle(url)
-  rping <- GET(handle=urlbase, path="ping")
-  dataPing <- content(rping, type="application/json")
+  urlbase <- httr::handle(url)
+  rping <- httr::GET(handle=urlbase, path="ping")
+  dataPing <- httr::content(rping, type="application/json")
 
-  status <- GET(handle=urlbase,  config=authenticate(user, pass), path="api/status")
+  status <- httr::GET(handle=urlbase,  config=authenticate(user, pass), path="api/status")
   dataQ1 <- content(status, type="application/json")
   
   con <- list(url, user, pass, status)
