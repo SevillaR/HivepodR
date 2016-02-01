@@ -7,25 +7,14 @@ nullToNA <- function(x) {
   return(x)
 }
 
-#' Encode a URLComponent  
-#' 
-#' Private function. Returns a value protected for URL encoding.
-#' 
-#' @param value The value to encode.
-#' 
-#' @return Returns a value protected for URL encoding. 
-#' Add quotes if value is a string. 
-#' Convert R logical value to JSON booleans.
-#' @examples 
-#' urlEncode("A B") 
-#' output> "A%20B"
+
 
 urlEncode <- function(value) {
   if (mode(value) == "numeric") {
     return (value)   
   }
   if (mode(value) == "character") {
-    return  (paste0("\"", value, "\"")) 
+    return  (paste0("\"", URLencode(value), "\"")) 
   }
   if (mode(value) == "logical") {
     if (value==TRUE) {
