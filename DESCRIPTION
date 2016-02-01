@@ -7,7 +7,7 @@ Author: Irene Mendoza, Elena Goméz-Diaz, Ignasi Bartomeus, Pedro J. Molina
 Maintainer: Pedro J. Molina <pjmolina@gmail.com>
 Description: Package for manipulating data on Hivepod backends (https://
     www.hivepod.io).
-License: MIT
+License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     httr
