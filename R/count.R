@@ -17,8 +17,8 @@
 
 count <- function(resource, conditions=NULL, distinct=NULL) {
   
-  urlbase <- handle(resource[[1]])
-  aut <- authenticate(resource[[2]], resource[[3]])
+  urlbase <- httr::handle(resource[[1]])
+  aut <- httr::authenticate(resource[[2]], resource[[3]])
   
   query <- "?count=true"
   prefix <- "&"
@@ -26,7 +26,7 @@ count <- function(resource, conditions=NULL, distinct=NULL) {
     query <- paste0(query, prefix, buildQueryConditions(conditions))
   }
   
-  q1 <- GET(handle=urlbase, config=aut, path=paste0("api/", resource[[5]], query) )
-  dataQ1 <- content(q1, type="application/json")
+  q1 <- httr::GET(handle=urlbase, config=aut, path=paste0("api/", resource[[5]], query) )
+  dataQ1 <- httr::content(q1, type="application/json")
   return (dataQ1)
 }

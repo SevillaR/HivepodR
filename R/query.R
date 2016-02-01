@@ -22,8 +22,8 @@
 #' query(off, limit=2, skip=2)
 
 query <- function(resource, limit=-1, skip=0, conditions=NULL, sort, selectFields, distinct) {
-  urlbase <- handle(resource[[1]])
-  aut <- authenticate(resource[[2]], resource[[3]])
+  urlbase <- httr::handle(resource[[1]])
+  aut <- httr::authenticate(resource[[2]], resource[[3]])
   
   query <- ""
   prefix <- "?"
@@ -40,8 +40,8 @@ query <- function(resource, limit=-1, skip=0, conditions=NULL, sort, selectField
     prefix <- "&"
   }
 
-  q1 <- GET(handle=urlbase, config=aut, path=paste("api/", resource[[5]], query, sep="") )
-  dataQ1 <- content(q1, type="application/json")
+  q1 <- httr::GET(handle=urlbase, config=aut, path=paste("api/", resource[[5]], query, sep="") )
+  dataQ1 <- httr::content(q1, type="application/json")
   df <- to_dataframe(dataQ1)
   return (df)
 }

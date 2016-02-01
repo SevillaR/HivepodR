@@ -19,8 +19,8 @@ connect <- function(url, user, pass) {
   rping <- httr::GET(handle=urlbase, path="ping")
   dataPing <- httr::content(rping, type="application/json")
 
-  status <- httr::GET(handle=urlbase,  config=authenticate(user, pass), path="api/status")
-  dataQ1 <- content(status, type="application/json")
+  status <- httr::GET(handle=urlbase,  config=httr::authenticate(user, pass), path="api/status")
+  dataQ1 <- httr::content(status, type="application/json")
   
   con <- list(url, user, pass, status)
   return (con)
