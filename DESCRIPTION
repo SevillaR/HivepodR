@@ -2,8 +2,8 @@ Package: HivepodR
 Version: 0.1.0
 Date: 2016-01-29
 Type: Package
-Title: Manipulate data on Hivepod backends.
-Author: Irene Mendoza, Elena Goméz-Diaz, Ignasi Bartomeus, Pedro J. Molina
+Title: Manipulate data on Hivepod backends
+Author: Irene Mendoza, Elena Gomez-Diaz, Ignasi Bartomeus, Pedro J. Molina
 Maintainer: Pedro J. Molina <pjmolina@gmail.com>
 Description: Package for manipulating data on Hivepod backends (https://
     www.hivepod.io).
