@@ -10,9 +10,9 @@ Todo list
     AND
     OR
     like
-    
-  Select 
-  files  
+  
+  str() function applied to object created from connect ()  
+  Select files  
   Sort
   Distint
   
@@ -22,9 +22,9 @@ Todo list
   Delete
   
   Refactor code
-  Document
-  Test
-  Publish
+  Document new functions (the rest, implemented)
+  Test    implemented
+  Publish implemented
   
   
   
