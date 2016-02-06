@@ -31,7 +31,7 @@ to_dataframe <- function(response, keep_metadata = "clean") {
     head(datamatrix)
     idnum <- grep("_id", colnames(datamatrix), fixed = TRUE)
     links <- grep("_links.", colnames(datamatrix), fixed = TRUE)
-    optionalsid <- grep("_", colnames(datamatrix), fixed = TRUE)
+    optionalsid <- grep("^_", colnames(datamatrix), fixed = TRUE)
     optionals <- optionalsid[-which(optionalsid == idnum)]
     if(keep_metadata == "clean"){
       clean <- datamatrix[,-optionals]
