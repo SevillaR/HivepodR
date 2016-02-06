@@ -8,9 +8,6 @@
 #' @return Updated data. 
 #' @export
 #' @examples 
-#' cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
-#' not <- resource(cnx, "noticias") 
-#' updates <- update(not, list(id="56ac9a7b49f4e0030063e100", titular="a", fecha="2016-02-05T12:56:00.345Z", cuerpo="body")) 
 
 update <- function(resource, rows) {
   urlbase <- httr::handle(resource[[1]])

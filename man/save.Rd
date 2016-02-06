@@ -17,7 +17,7 @@ New data with no defined \code{_id} property will be created as new. POST operat
 Preexisting records with a value in \code{_id} property will be updated in the backend. PUT operation will be attempted.
 }
 \description{
-Saves data in the cloud backend.
+Saves data in the cloud backend. Creates or update records based on the presence of the \code{_id} field.
 }
 \examples{
 cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 

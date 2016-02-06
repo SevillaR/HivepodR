@@ -10,7 +10,8 @@ Description: Package for manipulating data on Hivepod backends (https://
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
-    httr
+    httr,
+    jsonlite
 Suggests:
     testthat (>= 0.8.0)
 URL: https://github.com/SevillaR/hivepodR

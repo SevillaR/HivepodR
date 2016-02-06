@@ -9,9 +9,6 @@
 #' For new created data Hivepod will setup a  value for the \code{_id} field.
 #' @export
 #' @examples 
-#' cnx <- connect("http://jacaton-r.herokuapp.com", "demo", "1234") 
-#' not <- resource(cnx, "noticias") 
-#' newItem <- create(not, list(titular="a", fecha="2016-02-05T12:56:00.345Z", cuerpo="body")) 
 
 create <- function(resource, rows) {
   if (is.null(rows)) {
@@ -21,15 +18,15 @@ create <- function(resource, rows) {
 
   urlbase <- httr::handle(resource[[1]])
   aut <- httr::authenticate(resource[[2]], resource[[3]])
-  ah <- add_headers("Content-Type"="application/json")
+  ah <- httr::add_headers("Content-Type"="application/json")
 
-  payload = toJSON(rows, auto_unbox=TRUE)
+  payload <- jsonlite::toJSON(rows, auto_unbox=TRUE)
   
-  query = paste0("api/", resource[[5]])
+  query <- paste0("api/", resource[[5]])
   
-  reset_config()
-  set_config(ah)
-  set_config(aut)
+  httr::reset_config()
+  httr::set_config(ah)
+  httr::set_config(aut)
   httpResponse <- httr::POST(config=ah, path=query, body=payload, handle=urlbase)
   createdItems <- httr::content(httpResponse, type="application/json")
   df <- to_dataframe(createdItems)
